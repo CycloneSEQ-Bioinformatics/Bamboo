@@ -1,4 +1,4 @@
-![Bamboo logo](https://github.com/CycloneSEQ-Bioinformatics/_Bamboo/blob/chs_branch/bamboo_logo/bamboo_t1.png)
+![Bamboo logo](bamboo-logo.png)
 
 
 
