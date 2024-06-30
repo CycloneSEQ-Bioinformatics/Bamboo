@@ -1,5 +1,3 @@
-# Bamboo
-Bamboo: a tool for quality control and error profiling of long-read sequencing data.
 ![Bamboo logo](https://github.com/CycloneSEQ-Bioinformatics/_Bamboo/blob/chs_branch/bamboo_logo/bamboo_t1.png)
 
 ## 目录
@@ -14,7 +12,7 @@ Bamboo: a tool for quality control and error profiling of long-read sequencing d
 
 # Bamboo
 
-A tool designed to provide fast quality control for FastQ and Bam files. 
+a tool for quality control and error profiling of long-read sequencing data.
 
 
 ## Installation
