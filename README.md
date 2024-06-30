@@ -101,7 +101,7 @@ output_dir
 
 ```
 ## Documentation
-For detailed documentation, please visit [the Bamboo wiki](https://github.com/CycloneSEQ-Bioinformatics/figure_github/wiki).
+For detailed documentation, please visit [the Bamboo wiki](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/wiki).
 
 
 
