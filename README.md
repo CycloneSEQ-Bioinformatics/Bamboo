@@ -18,45 +18,77 @@ a tool for quality control and error profiling of long-read sequencing data.
 ## Installation
 
 ```sh
-git clone https://github.com/CycloneSEQ-Bioinformatics/Bamboo.git
-cd Bamboo
-conda env create --file environment.yml --name bamboo_env
-conda activate bamboo_env
-cd Bamboo_tar && cat bamboo.tar.gz* |tar -zxv
-#option (Long term method to add the bamboo path to the environment variable)
-echo "export PATH=$PWD:$PATH" >>~/.bashrc
-source ~/.bashrc
-bamboo --help
-#Temporarily add the bamboo path to the environment variable
-export PATH=$PWD:$PATH
-bamboo --help
+# Install samtools and Minimap2
+conda create -n bamboo_env samtools minimap2
+
+# Download Bamboo executable
+wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/latest/bamboo
+
+# Update file permission to allow bamboo to be executed.
+chmod +x bamboo
+
+# Test bamboo installation and show help message.
+./bamboo --help
 ```
 
-## Usage
-```
-Sequence Analysis  
--i, --sequence_path : Path to the input FASTQ file(s). Multiple files can be provided and will be concatenated before analysis.  
---sample_size : Sample size for processing (default: 100000).  
---seed : Random seed for sampling (default: 42).  
-Alignment Analysis  
--b, --bam_path : Path to the input BAM file.  
--r, --reference_path : Path to the reference FASTA file.  
---realign : Re-align reads if BAM file does not use --eqx parameter.  
---minimap2_path : Path to Minimap2 executable (default: minimap2).  
---minimap2_args : Command line arguments for Minimap2 (default: "-ax map-ont --eqx --secondary=no -t 8").  
---samtools_path : Path to samtools executable (default: samtools).  
-General Arguments  
--o, --output_dir : Directory to save output figures and reports (default: bamboo_report).  
---keep-intermediates : Do not remove intermediate data files generated in the analyses.  
-```
 ## Example Usage
 ```
 bamboo -i input1.fastq input2.fastq -o output_dir --sample_size 50000 --seed 123
 bamboo -b input.bam -r reference.fasta -o output_dir --realign
 bamboo --sequence_path Bamboo-main/test/data/ecoli_hifi.reads.fastq.gz --reference_path Bamboo-main/test/data/ecoli.reference.fasta.gz -o test_bamboo_fastqtobam2 --sample_size 10000
 ```
-## Output
-eg:
+
+## Command-line arguments
+
+```
+usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign] [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS]
+              [--samtools_path SAMTOOLS_PATH] [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [--sample_size SAMPLE_SIZE] [--seed SEED]
+              [--keep-intermediates]
+
+Bamboo: a tool for quality control and error profiling of long-read sequencing data.
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Sequence analyses:
+  Arguments for sequence analyses.
+
+  -i SEQUENCE_PATH [SEQUENCE_PATH ...], --sequence_path SEQUENCE_PATH [SEQUENCE_PATH ...]
+                        Path to the input FASTQ file. If multiple input files are supplied, they will be concatenated before analyses. (default:
+                        None)
+
+Alignment analyses:
+  Arguments for alignment analyses.
+
+  -b BAM_PATH, --bam_path BAM_PATH
+                        Path to the input BAM file. (default: None)
+  -r REFERENCE_PATH, --reference_path REFERENCE_PATH
+                        Path to the reference FASTA file. (default: None)
+  --realign             Re-align sampled reads using Minimap2. Use this option if the input BAM file does not contain x/= CIGAR operations.
+                        (default: False)
+  --minimap2_path MINIMAP2_PATH
+                        Path to Minimap2 executable. (default: minimap2)
+  --minimap2_args MINIMAP2_ARGS
+                        Command line arguments for Minimap2 (default: -ax map-ont --eqx --secondary=no -t 8)
+  --samtools_path SAMTOOLS_PATH
+                        Path to samtools executable. (default: samtools)
+
+General arguments:
+  General input/output arguments.
+
+  -o OUTPUT_DIR, --output_dir OUTPUT_DIR
+                        Directory to save output figures and reports. (default: bamboo_report)
+  --sample_size SAMPLE_SIZE
+                        The number of reads to be analyzed. Use --sample_size -1 to disable random sampling and analyze all reads in the input
+                        data. (default: 100000)
+  --seed SEED           Random seed for sampling. (default: 42)
+  --keep-intermediates  Do not remove intermediate data files generated in the analyses. (default: False)
+```
+
+
+
+## Example output
+
 
 ```
 output_dir
@@ -106,6 +138,7 @@ output_dir
 └──combined_report.html
 
 ```
+
 ## Documentation
 For detailed documentation, please visit [the Bamboo wiki](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/wiki).
 
@@ -113,11 +146,8 @@ For detailed documentation, please visit [the Bamboo wiki](https://github.com/Cy
 
 ### Contact
 
-- chenghansen@genomics.cn
-- zhangjiayuan@genomics.cn
-- lianming@genomics.cn
+- 程瀚森 Hansen Cheng (chenghansen@genomics.cn)
+- 张嘉远 Jia-Yuan Zhang (zhangjiayuan@genomics.cn)
+- 连明 Ming Lian (lianming@genomics.cn)
 
 
-### License
-
- [LICENSE.txt](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/main/blob/LICENSE.txt)
