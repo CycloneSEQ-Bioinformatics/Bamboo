@@ -1,14 +1,6 @@
 ![Bamboo logo](https://github.com/CycloneSEQ-Bioinformatics/_Bamboo/blob/chs_branch/bamboo_logo/bamboo_t1.png)
 
-## 目录
 
-- Bamboo
-- Installation
-- Usage
-- Example Usage
-- Output
-- Documentation
-- Contribution
 
 # Bamboo
 
