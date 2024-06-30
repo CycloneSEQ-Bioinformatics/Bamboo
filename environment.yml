@@ -1,0 +1,15 @@
+name: bamboo_env
+channels:
+ - conda-forge
+ - bioconda
+ - defaults
+dependencies:
+ - minimap2
+ - samtools
+ - python ~= 3.9.7
+
+
+
+
+
+          

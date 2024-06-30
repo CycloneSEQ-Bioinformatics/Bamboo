@@ -18,11 +18,17 @@ a tool for quality control and error profiling of long-read sequencing data.
 ## Installation
 
 ```sh
-git clone git@github.com:jzhang-dev/Bamboo.git
+git clone https://github.com/CycloneSEQ-Bioinformatics/Bamboo.git
 cd Bamboo
 conda env create --file environment.yml --name bamboo_env
 conda activate bamboo_env
-pip install .
+cd Bamboo_tar && cat bamboo.tar.gz* |tar -zxv
+#option (Long term method to add the bamboo path to the environment variable)
+echo "export PATH=$PWD:$PATH" >>~/.bashrc
+source ~/.bashrc
+bamboo --help
+#Temporarily add the bamboo path to the environment variable
+export PATH=$PWD:$PATH
 bamboo --help
 ```
 
