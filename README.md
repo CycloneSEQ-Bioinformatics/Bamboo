@@ -132,14 +132,20 @@ output_dir
 ```
 
 ## Documentation
-For detailed documentation, please visit [the Bamboo wiki](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/wiki).
+For detailed documentation, please visit our [wiki](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/wiki).
 
 
+## Feedbacks
 
-### Contact
+Please [raise an issue on GitHub](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/issues) if you have any questions, suggestions or encountered any bugs. 
+
+## Authors
 
 - 程瀚森 Hansen Cheng (chenghansen@genomics.cn)
 - 张嘉远 Jia-Yuan Zhang (zhangjiayuan@genomics.cn)
 - 连明 Ming Lian (lianming@genomics.cn)
 
+## License
+
+Bamboo is distributed under the GPLv3 license. Source code will we released shortly. 
 
