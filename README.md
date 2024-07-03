@@ -14,7 +14,7 @@ a tool for quality control and error profiling of long-read sequencing data.
 conda create -n bamboo_env samtools minimap2
 
 # Download Bamboo executable
-wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v0.1.0/bamboo
+wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v0.1.2/bamboo
 
 # Update file permission to allow bamboo to be executed.
 chmod +x bamboo
