@@ -16,7 +16,11 @@ conda create -n bamboo_env samtools minimap2
 # Download Bamboo executable
 wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v0.1.2/bamboo-0.1.2.tar.gz
 
+# Unzip
+tar xvzf bamboo-0.1.2.tar.gz
+
 # Update file permission to allow bamboo to be executed.
+cd bamboo-0.1.2
 chmod +x bamboo
 
 # Test bamboo installation and show help message.
