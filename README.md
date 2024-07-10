@@ -13,8 +13,11 @@ a tool for quality control and error profiling of long-read sequencing data.
 # Install samtools and Minimap2
 conda create -n bamboo_env samtools minimap2
 
+# Check the latest version of Bamboo
+BAMBOO_VERSION=$(curl -s https://api.github.com/repos/CycloneSEQ-Bioinformatics/Bamboo/releases/latest | grep "tag_name" | awk -F'"' '{print $4}' | sed 's/^v//')
+echo $BAMBOO_VERSION 
+
 # Download Bamboo executable
-BAMBOO_VERSION=0.1.3
 wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v0.1.3/bamboo-$BAMBOO_VERSION.tar.gz
 
 # Unzip
