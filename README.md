@@ -18,7 +18,7 @@ BAMBOO_VERSION=$(curl -s https://api.github.com/repos/CycloneSEQ-Bioinformatics/
 echo $BAMBOO_VERSION 
 
 # Download Bamboo executable
-wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v0.1.3/bamboo-$BAMBOO_VERSION.tar.gz
+wget https://github.com/CycloneSEQ-Bioinformatics/Bamboo/releases/download/v$BAMBOO_VERSION/bamboo-$BAMBOO_VERSION.tar.gz
 
 # Unzip
 tar xvzf bamboo-$BAMBOO_VERSION.tar.gz
