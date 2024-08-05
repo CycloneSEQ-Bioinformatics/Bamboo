@@ -41,11 +41,15 @@ bamboo --sequence_path Bamboo-main/test/data/ecoli_hifi.reads.fastq.gz --referen
 ## Command-line arguments
 
 ```
-usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign] [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS]
-              [--samtools_path SAMTOOLS_PATH] [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [--sample_size SAMPLE_SIZE] [--seed SEED]
-              [--keep-intermediates]
+usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign]
+              [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS]
+              [--samtools_path SAMTOOLS_PATH]
+              [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR]
+              [--sample_size SAMPLE_SIZE] [--seed SEED] [--keep-intermediates]
+              [--align_all]
 
-Bamboo: a tool for quality control and error profiling of long-read sequencing data.
+Bamboo v0.2.0: a tool for quality control and error profiling of long-read
+sequencing data.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -54,8 +58,9 @@ Sequence analyses:
   Arguments for sequence analyses.
 
   -i SEQUENCE_PATH [SEQUENCE_PATH ...], --sequence_path SEQUENCE_PATH [SEQUENCE_PATH ...]
-                        Path to the input FASTQ file. If multiple input files are supplied, they will be concatenated before analyses. (default:
-                        None)
+                        Path to the input FASTQ file. If multiple input files
+                        are supplied, they will be concatenated before
+                        analyses. (default: None)
 
 Alignment analyses:
   Arguments for alignment analyses.
@@ -64,12 +69,14 @@ Alignment analyses:
                         Path to the input BAM file. (default: None)
   -r REFERENCE_PATH, --reference_path REFERENCE_PATH
                         Path to the reference FASTA file. (default: None)
-  --realign             Re-align sampled reads using Minimap2. Use this option if the input BAM file does not contain x/= CIGAR operations.
-                        (default: False)
+  --realign             Re-align sampled reads using Minimap2. Use this option
+                        if the input BAM file does not contain x/= CIGAR
+                        operations. (default: False)
   --minimap2_path MINIMAP2_PATH
                         Path to Minimap2 executable. (default: minimap2)
   --minimap2_args MINIMAP2_ARGS
-                        Command line arguments for Minimap2 (default: -ax map-ont --eqx --secondary=no -t 8)
+                        Command line arguments for Minimap2 (default: -ax map-
+                        ont --eqx --secondary=no -t 8)
   --samtools_path SAMTOOLS_PATH
                         Path to samtools executable. (default: samtools)
 
@@ -77,12 +84,19 @@ General arguments:
   General input/output arguments.
 
   -o OUTPUT_DIR, --output_dir OUTPUT_DIR
-                        Directory to save output figures and reports. (default: bamboo_report)
+                        Directory to save output figures and reports.
+                        (default: bamboo_report)
   --sample_size SAMPLE_SIZE
-                        The number of reads to be analyzed. Use --sample_size -1 to disable random sampling and analyze all reads in the input
-                        data. (default: 100000)
+                        The number of reads to be analyzed. Use --sample_size
+                        -1 to disable random sampling and analyze all reads in
+                        the input data. (default: 100000)
   --seed SEED           Random seed for sampling. (default: 42)
-  --keep-intermediates  Do not remove intermediate data files generated in the analyses. (default: False)
+  --keep-intermediates  Do not remove intermediate data files generated in the
+                        analyses. (default: False)
+  --align_all           Align all reads in the original fastq file to the
+                        reference genome,this parameter defaults to false and
+                        may increase the runtime significantly if this mode is
+                        used. (default: False)
 ```
 
 
