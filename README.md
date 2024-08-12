@@ -41,9 +41,8 @@ bamboo --sequence_path Bamboo-main/test/data/ecoli_hifi.reads.fastq.gz --referen
 ## Command-line arguments
 
 ```
-usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign] [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS]
-              [--samtools_path SAMTOOLS_PATH] [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [--sample_size SAMPLE_SIZE] [--seed SEED]
-              [--keep-intermediates]
+usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign] [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS] [--samtools_path SAMTOOLS_PATH]
+              [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [--sample_size SAMPLE_SIZE] [--seed SEED] [--keep-intermediates] [--align_all]
 
 Bamboo: a tool for quality control and error profiling of long-read sequencing data.
 
@@ -54,8 +53,7 @@ Sequence analyses:
   Arguments for sequence analyses.
 
   -i SEQUENCE_PATH [SEQUENCE_PATH ...], --sequence_path SEQUENCE_PATH [SEQUENCE_PATH ...]
-                        Path to the input FASTQ file. If multiple input files are supplied, they will be concatenated before analyses. (default:
-                        None)
+                        Path to the input FASTQ file. If multiple input files are supplied, they will be concatenated before analyses. (default: None)
 
 Alignment analyses:
   Arguments for alignment analyses.
@@ -64,8 +62,7 @@ Alignment analyses:
                         Path to the input BAM file. (default: None)
   -r REFERENCE_PATH, --reference_path REFERENCE_PATH
                         Path to the reference FASTA file. (default: None)
-  --realign             Re-align sampled reads using Minimap2. Use this option if the input BAM file does not contain x/= CIGAR operations.
-                        (default: False)
+  --realign             Re-align sampled reads using Minimap2. Use this option if the input BAM file does not contain x/= CIGAR operations. (default: False)
   --minimap2_path MINIMAP2_PATH
                         Path to Minimap2 executable. (default: minimap2)
   --minimap2_args MINIMAP2_ARGS
@@ -79,10 +76,12 @@ General arguments:
   -o OUTPUT_DIR, --output_dir OUTPUT_DIR
                         Directory to save output figures and reports. (default: bamboo_report)
   --sample_size SAMPLE_SIZE
-                        The number of reads to be analyzed. Use --sample_size -1 to disable random sampling and analyze all reads in the input
-                        data. (default: 100000)
+                        The number of reads to be analyzed. Use --sample_size -1 to disable random sampling and analyze all reads in the input data. (default:
+                        100000)
   --seed SEED           Random seed for sampling. (default: 42)
   --keep-intermediates  Do not remove intermediate data files generated in the analyses. (default: False)
+  --align_all           Align all reads in the original fastq file to the reference genome,this parameter defaults to false and may increase the runtime
+                        significantly if this mode is used. (default: False)
 ```
 
 
@@ -92,51 +91,57 @@ General arguments:
 
 ```
 output_dir
-├── /sequence/
-│  ├──fastq_overall_stat.txt
-│  ├──fastq_report.html
-│  ├──length_and_quality
-│  │  ├──cumulative_plot.png
-│  │  ├──length_distribution.png
-│  │  ├──qc_ref_free_head_qua.png
-│  │  ├──qc_ref_free_tail_qua.png
-│  │  ├──quality_distribution_across_read.png
-│  │  ├──quality_distribution.png
-│  │  ├──read_len_vs_q.png
-│  ├──read_content
-│  │  ├──dimer_event_dis.png
-│  │  ├──dimer_len_dis.png
-│  │  ├──homo_event_dis.png
-│  │  ├──homo_len_dis.png
-│  │  ├──tail_base_content.png
-│  │  ├──dimer_freq_per10kb.png
-│  │  ├──head_base_content.png
-│  │  ├──homo_freq_per10kb.png
-│  │  ├──reads_gc.png
-├── /alignment/
-│  ├──bam_info.txt
-│  ├──bam_report.html
-│  ├──error_and_bias
-│  │  ├──gc_distribution.png
-│  │  ├──gc_vs_coverage.png
-│  │  ├──indel.png
-│  │  ├──overall_error_rate.png
-│  │  ├─Genome_Fraction_Coverage.png
-│  │  ├─per_read_error.png
-│  │  ├─read_quality_vs_identity.png
-│  │  ├─substitution_error_profile.png
-│  │  ├─whole_genome_coverage.png
-│  ├──homopolymer_and_dimer
-│  │  ├──dimer_error_overall.png
-│  │  ├──dimer_error_subplot.png
-│  │  ├──dimer_heatmap_overall.png
-│  │  ├──dimer_heatmaps_subplot.png
-│  │  ├──homo_error_overall.png
-│  │  ├──homo_error_subplot.png
-│  │  ├──homo_heatmap_overall.png
-│  │  ├──homo_heatmaps_subplot.png
-└──combined_report.html
-
+├── alignment
+│   ├── Bamboo_report.ref_based.html
+│   ├── bam_info.txt
+│   ├── Coverage_and_bias
+│   │   ├── gc_vs_coverage.png
+│   │   ├── Genome_Fraction_Coverage.png
+│   │   └── whole_genome_coverage.png
+│   ├── genomic_coverage.temp.pickle
+│   ├── Low_complexity_regions
+│   │   ├── dimer_error_overall.png
+│   │   ├── dimer_error_subplot.png
+│   │   ├── dimer_heatmap_overall.png
+│   │   ├── dimer_heatmaps_subplot.png
+│   │   ├── homodimer_induced_errors.png
+│   │   ├── homo_error_overall.png
+│   │   ├── homo_error_subplot.png
+│   │   ├── homo_heatmap_overall.png
+│   │   ├── homo_heatmaps_subplot.png
+│   │   └── homo_induced_errors_homolen.png
+│   ├── Sequencing_accuracy
+│   │   ├── error_along_readsite.event.png
+│   │   ├── error_along_readsite.len.png
+│   │   ├── indel_size.png
+│   │   ├── long_reads_errors.png
+│   │   ├── overall_error_rate.png
+│   │   ├── per_read_error.png
+│   │   ├── read_quality_vs_identity.png
+│   │   ├── short_reads_errors.png
+│   │   └── substitution_error_profile.png
+└── sequence
+│   ├── Bamboo_report.ref_free.html
+│   ├── fastq_overall_stat.txt
+│   ├── length_and_quality
+│   │   ├── cumulative_plot.png
+│   │   ├── length_distribution.png
+│   │   ├── quality_distribution_across_read.png
+│   │   ├── quality_distribution.png
+│   │   ├── read_head_quality.png
+│   │   ├── read_length_vs_quality.png
+│   │   └── read_tail_quality.png
+│   ├── read_content
+│   │   ├── head_base_content.png
+│   │   ├── heteropolymer_event_distribution.png
+│   │   ├── heteropolymer_frequency_per10kb.png
+│   │   ├── heteropolymer_length_distribution.png
+│   │   ├── homopolymer_event_distribution.png
+│   │   ├── homopolymer_frequency_per10kb.png
+│   │   ├── homopolymer_length_distribution.png
+│   │   ├── reads_gc.png
+│   │   └── tail_base_content.png
+├── Bamboo_report.combined.html
 ```
 
 ## Documentation
