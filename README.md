@@ -42,9 +42,9 @@ bamboo --sequence_path Bamboo-main/test/data/ecoli_hifi.reads.fastq.gz --referen
 
 ```
 usage: bamboo [-h] [-b BAM_PATH] [-r REFERENCE_PATH] [--realign] [--minimap2_path MINIMAP2_PATH] [--minimap2_args MINIMAP2_ARGS] [--samtools_path SAMTOOLS_PATH]
-              [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [--sample_size SAMPLE_SIZE] [--seed SEED] [--keep-intermediates] [--align_all]
+              [--align_all] [-i SEQUENCE_PATH [SEQUENCE_PATH ...]] [-o OUTPUT_DIR] [-t THREADS] [--sample_size SAMPLE_SIZE] [--seed SEED] [--keep-intermediates]
 
-Bamboo: a tool for quality control and error profiling of long-read sequencing data.
+Bamboo v0.2.0: a tool for quality control and error profiling of long-read sequencing data.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -69,19 +69,20 @@ Alignment analyses:
                         Command line arguments for Minimap2 (default: -ax map-ont --eqx --secondary=no -t 8)
   --samtools_path SAMTOOLS_PATH
                         Path to samtools executable. (default: samtools)
+  --align_all           When `--bam_path` is not specified, perform alignment for all input reads (rather than just the sampled reads) to the reference genome.
+                        Aligning all reads will improve accuracy of sequencing coverage analyses, but can take a considerable amount of time. (default: False)
 
 General arguments:
   General input/output arguments.
 
   -o OUTPUT_DIR, --output_dir OUTPUT_DIR
                         Directory to save output figures and reports. (default: bamboo_report)
+  -t THREADS, --threads THREADS
   --sample_size SAMPLE_SIZE
                         The number of reads to be analyzed. Use --sample_size -1 to disable random sampling and analyze all reads in the input data. (default:
                         100000)
   --seed SEED           Random seed for sampling. (default: 42)
   --keep-intermediates  Do not remove intermediate data files generated in the analyses. (default: False)
-  --align_all           Align all reads in the original fastq file to the reference genome,this parameter defaults to false and may increase the runtime
-                        significantly if this mode is used. (default: False)
 ```
 
 
