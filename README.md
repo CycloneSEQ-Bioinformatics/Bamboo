@@ -144,9 +144,12 @@ output_dir
 │   │   └── tail_base_content.png
 ├── Bamboo_report.combined.html
 ```
+Please download and open html file to check the result with Web Browser, such as Google Chrome and so on.
 
 ## Documentation
 For detailed documentation, please visit our [wiki](https://github.com/CycloneSEQ-Bioinformatics/Bamboo/wiki).
+
+To review the findings presented in the web report, we have provided an illustrative example. Please access the document "[Bamboo_report.combined.html](https://html-preview.github.io/?url=https://github.com/CycloneSEQ-Bioinformatics/Bamboo/tree/main/test/data/Bamboo_report.combined.html)" for detailed examination.
 
 
 ## Feedbacks
