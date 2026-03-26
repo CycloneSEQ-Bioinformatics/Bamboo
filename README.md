@@ -1,3 +1,20 @@
+## Project Status: Sunset Notice
+
+> [!IMPORTANT]
+> **This repository (Bamboo) is no longer under active development or maintenance.**
+
+For the latest features, improved performance, and a more user-friendly experience in long-read quality control and error profiling, we strongly recommend all users transition to our new tool: **Rosa**.
+
+### Why Switch to Rosa?
+
+* **Expanded Functionality:** Provides more comprehensive QC metrics and detailed descriptions to assist with result interpretation.
+* **Enhanced Usability:** Features a streamlined installation process and numerous bug fixes for a smoother experience.
+* **Active Support:** Our team is highly responsive; please reach out by opening a GitHub issue.
+
+**Get started here: [https://github.com/CycloneSEQ-Bioinformatics/Rosa](https://github.com/CycloneSEQ-Bioinformatics/Rosa)**
+
+
+
 ![Bamboo logo](bamboo-logo.png)
 
 
